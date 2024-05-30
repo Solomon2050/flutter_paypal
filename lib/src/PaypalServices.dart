@@ -52,7 +52,7 @@ class PaypalServices {
           body: convert.jsonEncode(transactions),
           headers: {
             "content-type": "application/json",
-            'Authorization': 'Bearer ' + accessToken
+            'Authorization': 'Bearer $accessToken' 
           });
 
       final body = convert.jsonDecode(response.body);
@@ -89,7 +89,7 @@ class PaypalServices {
           body: convert.jsonEncode({"payer_id": payerId}),
           headers: {
             "content-type": "application/json",
-            'Authorization': 'Bearer ' + accessToken
+            'Authorization': 'Bearer $accessToken' 
           });
 
       final body = convert.jsonDecode(response.body);

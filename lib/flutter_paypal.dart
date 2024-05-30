@@ -195,6 +195,7 @@ class UsePaypalState extends State<UsePaypal> {
             if (request.url.contains(widget.cancelURL)) {
               final uri = Uri.parse(request.url);
               await widget.onCancel(uri.queryParameters);
+              // ignore: use_build_context_synchronously
               Navigator.of(context).pop();
             }
             debugPrint('allowing navigation to ${request.url}');

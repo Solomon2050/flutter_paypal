@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/src/errors/network_error.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -20,6 +22,7 @@ class CompletePayment extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CompletePaymentState createState() => _CompletePaymentState();
 }
 
@@ -81,8 +84,8 @@ class _CompletePaymentState extends State<CompletePayment> {
     return Scaffold(
       body: Container(
         child: loading
-            ? Column(
-                children: const [
+            ? const Column(
+                children: [
                   Expanded(
                     child: Center(
                       child: SpinKitFadingCube(
