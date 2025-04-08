@@ -9,7 +9,7 @@ class CompletePayment extends StatefulWidget {
   final PaypalServices services;
   final String url, executeUrl, accessToken;
   const CompletePayment({
-    Key? key,
+    super.key,
     required this.onSuccess,
     required this.onError,
     required this.onCancel,
@@ -17,10 +17,10 @@ class CompletePayment extends StatefulWidget {
     required this.url,
     required this.executeUrl,
     required this.accessToken,
-  }) : super(key: key);
+  });
 
   @override
-  _CompletePaymentState createState() => _CompletePaymentState();
+  State<CompletePayment> createState() => _CompletePaymentState();
 }
 
 class _CompletePaymentState extends State<CompletePayment> {
@@ -41,8 +41,11 @@ class _CompletePaymentState extends State<CompletePayment> {
         loadingError = false;
       });
 
-      Map resp = await widget.services
-          .executePayment(widget.executeUrl, payerID, widget.accessToken);
+      Map resp = await widget.services.executePayment(
+        widget.executeUrl,
+        payerID,
+        widget.accessToken,
+      );
       if (resp['error'] == false) {
         params['status'] = 'success';
         params['data'] = resp['data'];
@@ -80,34 +83,34 @@ class _CompletePaymentState extends State<CompletePayment> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: loading
-            ? Column(
-                children: const [
-                  Expanded(
-                    child: Center(
-                      child: SpinKitFadingCube(
-                        color: Color(0xFFEB920D),
-                        size: 30.0,
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            : loadingError
+        child:
+            loading
                 ? Column(
-                    children: [
-                      Expanded(
-                        child: Center(
-                          child: NetworkError(
-                              loadData: complete,
-                              message: "Something went wrong,"),
+                  children: const [
+                    Expanded(
+                      child: Center(
+                        child: SpinKitFadingCube(
+                          color: Color(0xFFEB920D),
+                          size: 30.0,
                         ),
                       ),
-                    ],
-                  )
-                : const Center(
-                    child: Text("Payment Completed"),
-                  ),
+                    ),
+                  ],
+                )
+                : loadingError
+                ? Column(
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: NetworkError(
+                          loadData: complete,
+                          message: "Something went wrong,",
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+                : const Center(child: Text("Payment Completed")),
       ),
     );
   }

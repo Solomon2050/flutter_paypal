@@ -6,7 +6,7 @@ class NetworkError extends StatelessWidget {
   final bool isSmall;
 
   const NetworkError(
-      {required this.loadData, required this.message, this.isSmall = false});
+      {super.key, required this.loadData, required this.message, this.isSmall = false});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class NetworkError extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("$message",
+              Text(message,
                   style: TextStyle(
                       fontSize: 14,
                       color: Color(0xFF272727),
